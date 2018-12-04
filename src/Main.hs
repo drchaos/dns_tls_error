@@ -56,7 +56,7 @@ onSomeException e = putStrLn $ "Catch exception: " <> show e
 
 handleRequest :: Context -> DNSMessage -> IO ()
 handleRequest ctx (DNSMessage hdr@(DNSHeader _ hdrFlags@(DNSFlags QR_Query OP_STD _ _ _ _ _ _)) questions _ _ _) =
-  void . forkIO $
+  void . forkIO $ -- Error disapiears when this line is commented
     do
       let respHdr = hdr { flags = hdrFlags { qOrR = QR_Response,
                                              recAvailable = True,
